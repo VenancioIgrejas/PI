@@ -1,0 +1,106 @@
+{% extends 'weight/base.html' %}
+
+{% block content %}
+	<div class="main-content">
+
+	    <br><br>
+
+	    <div class="row"> 
+	    	<div class="col-lg-8" id="household-count-chart" class='col-lg-6'>
+				<canvas id="hh-count-chart"></canvas>
+			</div>
+		</div>
+
+	    <br><br><br>
+
+		<div class="row">
+			<div class="col-lg-6" id="household-spending-chart" class='col-lg-6'>
+				<canvas id="hh-spend-chart"></canvas>
+			</div>
+		</div>
+
+		<br><br><br>
+
+	</div> <!-- End main-content -->
+
+	<script>
+    {% block jquery %}
+
+    var endpoint = '/api/barchart/data';
+    var defaultData = [];
+    var labels = [];
+
+    	$.ajax({
+    		method: 'GET',
+    		url: endpoint,
+    		success: function(data) {
+    			labels = data.sorted_brands;
+    			data = data.sorted_avg_spend;
+    			console.log(data);
+
+		    	var ctx = document.getElementById("hh-spend-chart").getContext('2d');
+				var myChart = new Chart(ctx, {
+				    type: 'bar',
+				    data: {
+				        labels: labels,
+				        datasets: [{
+				            label: 'Avg. $ Spent per Household',
+				            data: data,
+				            backgroundColor: [
+				    			'#FF7011',
+				    			'#FF7011CC',
+				    			'#FF701199',
+				    			'#FF701166',
+				    		],
+		    			}],
+		    		},
+		    	})
+		    },
+    		error: function(error_data) {
+    			console.log("error");
+    			console.log(error_data);
+    		}
+    	})
+
+	var endpointPie = '/api/piechart/data';
+    var defaultDataPie = [];
+    var labelsPie = [];
+
+    	$.ajax({
+    		method: 'GET',
+    		url: endpointPie,
+    		success: function(data) {
+    			labels = data.sorted_brands;
+    			data = data.sorted_hhs_by_brand;
+    			console.log(data);
+
+    			var ctx = document.getElementById("hh-count-chart").getContext('2d');
+		    	var myDoughnutChart = new Chart(ctx, {
+				    type: 'doughnut',
+				    data: {
+				    	labels: labels,
+				    	datasets: [{
+				    		label: 'Household Purchase Count by Brand',
+				    		data: data,
+				    		backgroundColor: [
+				    			'#FF7011',
+				    			'#FF7011CC',
+				    			'#FF701199',
+				    			'#FF701166',
+				    		],
+				    		pointHoverBackgroundColor: '#25303B'
+				    	}]
+				    }
+				});
+		    },
+    		error: function(error_data) {
+    			console.log("error");
+    			console.log(error_data);
+    		}
+    	})
+
+	{% endblock %}
+
+    </script>
+
+{% endblock %}

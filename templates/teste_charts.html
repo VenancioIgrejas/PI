@@ -1,0 +1,55 @@
+{% extends 'base_teste_charts.html' %}
+
+
+{% block jquery %}
+var endpoint = '/weight/api/chart/data/' // {% url "api-data" %}
+var Weightdate = Weight = data_dash = layout_dash = []
+
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+
+        Weightdate = data.weights_date
+        Weight = data.weight_values
+
+
+        var data_dash = [{
+            x:Weightdate,
+            y:Weight,
+            type: 'line',
+            orientation: 'h',
+            marker:{
+                color: "#23b7e5",
+        }}];
+
+        var layout_dash = {
+            title:"Weights per data",
+            margin:{l:200}};
+
+        TESTER = document.getElementById('tester');
+        Plotly.newPlot(TESTER, data_dash, layout_dash);
+        
+        
+    },
+    error: function(error_data){
+        console.log(error_data)
+    }
+})
+
+TESTER = document.getElementById('tester');
+Plotly.newPlot(TESTER, data_dash, layout_dash);
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-sm-12'>
+        <h1>Hello World</h1>
+        <div id="tester" style="widows: 1200px;height:520px;"></div>
+    </div>
+</div>
+
+{% endblock content %}
