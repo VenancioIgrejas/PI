@@ -1,5 +1,9 @@
 # ignore all database
 *.sqlite3
+**/migrations/
 
 # ignore all pycache
 **/__pycache__/
+*.pyc
+
+weight/migrations/0001_initial.py

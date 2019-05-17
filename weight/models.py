@@ -7,5 +7,5 @@ from django.contrib.auth.models import User
 class WeightModel(models.Model):
     weight = models.FloatField(name='weight', null=True)
     owner = models.ForeignKey(User,on_delete=models.CASCADE, related_name='users')
-    date = models.DateField()
+    date = models.DateTimeField()
 
