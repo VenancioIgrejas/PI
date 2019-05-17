@@ -19,10 +19,16 @@ class ChartDataView(APIView):
     permission_classes = []  # (permissions.IsAdminUser,)
 
     def get(self, request, format=None):
+        
+        # labels = ["Blue", "Yellow", "Green", "Purple", "Orange"]
+        # default_items = [23, 2, 3, 12, 2]
         # data = {
-        #     'weight_values': [1, 4, 6, 6, 9, 7, 10, 12, 11],
-        #     'weights_date': [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        #         "labels": labels,
+        #         "default": default_items,
         # }
+
+        # return Response(data)
+
 
         querySet = WeightModel.objects.all()
 

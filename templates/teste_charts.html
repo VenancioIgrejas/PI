@@ -2,56 +2,60 @@
 
 
 {% block jquery %}
-var endpoint = '/weight/api/chart/data/' // {% url "api-data" %}
+var endpoint = '/weight/api/chart/data/'
+var defaultData = []
 var labels = [];
-var weight = [];
 $.ajax({
     method: "GET",
     url: endpoint,
     success: function(data){
-            labels = data.weight
-            weight = data.date
-            setChart()
+        console.log(data.labels)
+        labels = data.date
+        defaultData = data.weight
+        setChart()
     },
     error: function(error_data){
+        console.log("error")
         console.log(error_data)
     }
 })
-
 function setChart(){
-    var ctx = document.getElementById("productsChart");
-    var productsChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: '# of Votes',
-                data: weight,
-                borderWidth: 1
+    var ctx = document.getElementById("myChart");
+    
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Weights of User',
+            data: defaultData,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
             }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
         }
-    });
+    }
+});
 }
+// var ctx = document.getElementById("myChart");
 
 
 {% endblock %}
 
 {% block content %}
-
 <div class='row'>
-    <div class='col-sm-6'>
+    <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
         <h1>Hello World</h1>
-        <canvas id="productsChart" width="10" height="10"></canvas>
+        <div class='col-sm-6'>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+
     </div>
 </div>
-
 {% endblock content %}
