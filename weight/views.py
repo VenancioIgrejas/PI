@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from .models import WeightModel
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from .serializers import WeightSerializer
 
 # Create your views here.
+
 
 class ChartDataView(APIView):
     """
@@ -18,6 +20,7 @@ class ChartDataView(APIView):
     authentication_classes = []  # (authentication.TokenAuthentication,)
     permission_classes = []  # (permissions.IsAdminUser,)
 
+    @login_required
     def get(self, request, format=None):
         
         # labels = ["Blue", "Yellow", "Green", "Purple", "Orange"]
@@ -30,7 +33,7 @@ class ChartDataView(APIView):
         # return Response(data)
 
 
-        querySet = WeightModel.objects.all()
+        querySet = WeightModel.objects.filter(owner=User).order_by('date')
 
         serializer = WeightSerializer(querySet)
 

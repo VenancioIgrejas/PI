@@ -55,7 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'balanca.urls'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/weight/dashbord'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
@@ -79,6 +79,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'balanca.wsgi.application'
 
+STATICFILES_DIRS = (
+   os.path.join(BASE_DIR, 'templates/static'),
+)
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

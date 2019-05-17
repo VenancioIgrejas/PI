@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='teste_charts.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'accounts/', include('django.contrib.auth.urls')),
     url('admin/', admin.site.urls),
     url('accounts/', include('accounts.urls')),
     url('weight/', include('weight.urls'))
 ]
+

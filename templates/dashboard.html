@@ -1,4 +1,4 @@
-{% extends 'base_teste_charts.html' %}
+{% extends 'base_dashboard.html' %}
 
 
 {% block jquery %}
@@ -51,10 +51,15 @@ function setChart(){
 {% block content %}
 <div class='row'>
     <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
-        <h1>Hello World</h1>
-        <div class='col-sm-6'>
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
+        {% if user.is_authenticated %}
+            <div class='col-sm-10'>
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+            <p><a href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+            <p>You are not logged in</p>
+            <a href="{% url 'login' %}">login</a>
+        {% endif %}
 
     </div>
 </div>
