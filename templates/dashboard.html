@@ -1,6 +1,40 @@
-{% extends 'base_dashboard.html' %} {% block jquery %} var endpoint = '/weight/api/chart/data/' var defaultData = [] var labels = []; $.ajax({ method: "GET", url: endpoint, success: function(data){ console.log(data.labels) labels = data.date defaultData
-= data.weight setChart() }, error: function(error_data){ console.log("error") console.log(error_data) } }) function setChart(){ var ctx = document.getElementById("myChart"); var myChart = new Chart(ctx, { type: 'line', data: { labels: labels, datasets:
-[{ label: 'Weights of User', data: defaultData, borderWidth: 1 }] }, options: { scales: { yAxes: [{ ticks: { beginAtZero:true } }] } } }); } // var ctx = document.getElementById("myChart"); {% endblock %} {% block content %}
+{% extends 'base_dashboard.html' %} 
+
+{% block jquery %} 
+var endpoint = '/weight/api/chart/data/'; 
+var defaultData = []; 
+var labels = []; 
+$.ajax({ 
+    method: "GET", 
+    url: endpoint, 
+    success: function(data){ 
+        console.log(data.labels); 
+        labels = data.date 
+        defaultData= data.weight 
+        setChart() }, 
+    error: function(error_data){ 
+        console.log("error") 
+        console.log(error_data) } 
+    }) 
+    
+function setChart(){
+     var ctx = document.getElementById("myChart"); 
+     var myChart = new Chart(ctx, {
+        type: 'line',
+        data: { 
+            labels: labels, 
+            datasets:[{ 
+                label: 'Weights of User', 
+                data: defaultData, 
+                borderWidth: 1 }] }, 
+                options: { scales: 
+                    { yAxes: 
+                        [{ ticks: 
+                            { beginAtZero:true } }] } } }); }
+                             
+{% endblock %} 
+
+{% block content %}
 <div class='row'>
     <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
         {% if user.is_authenticated %}
