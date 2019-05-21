@@ -79,6 +79,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'balanca.wsgi.application'
 
+#AUTH_USER_MODEL = 'users.CustomUser'
+
 STATICFILES_DIRS = (
    os.path.join(BASE_DIR, 'templates/static'),
 )
