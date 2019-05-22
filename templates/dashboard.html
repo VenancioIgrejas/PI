@@ -26,11 +26,24 @@ function setChart(){
             datasets:[{ 
                 label: 'Weights of User', 
                 data: defaultData, 
-                borderWidth: 1 }] }, 
-                options: { scales: 
-                    { yAxes: 
-                        [{ ticks: 
-                            { beginAtZero:true } }] } } }); }
+                borderWidth: 1 
+            }] 
+        }, 
+        options: {
+            scales: {
+                yAxes: [{
+                    
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            
+
+        }
+        
+    });
+}
                              
 {% endblock %} 
 
@@ -38,8 +51,8 @@ function setChart(){
 <div class='row'>
     <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
         {% if user.is_authenticated %}
-        <div class='col-sm-10'>
-            <canvas id="myChart" width="400" height="400"></canvas>
+        <div class='col-sm-12'>
+            <canvas id="myChart" width="400" height="200"></canvas>
         </div>
         {% else %}
         <p>You are not logged in</p>

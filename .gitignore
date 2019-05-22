@@ -6,4 +6,4 @@
 **/__pycache__/
 *.pyc
 
-weight/migrations/0001_initial.py
+*_initial.py
